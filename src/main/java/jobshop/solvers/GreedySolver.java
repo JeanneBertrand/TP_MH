@@ -111,8 +111,8 @@ public class GreedySolver implements Solver {
 			//System.out.println("selected task was "+taskPrio+" machine "+machine);
 			sol.tasksByMachine[machine][sol.nextFreeSlot[machine]] = taskPrio;
 			sol.nextFreeSlot[machine]++; 
-			endJobs[taskPrio.job] += instance.duration(taskPrio) + this.EST ; 
-			releaseTimeOfMachine[machine] += endJobs[taskPrio.job] ; 
+			endJobs[taskPrio.job] = instance.duration(taskPrio) + this.EST ; 
+			releaseTimeOfMachine[machine] = endJobs[taskPrio.job] ; 
 
 
 			//update realisable[]
