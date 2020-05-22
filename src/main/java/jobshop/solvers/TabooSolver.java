@@ -16,7 +16,6 @@ public class TabooSolver extends DescentSolver {
 	private int[][] sTaboo ; 
 
 	public TabooSolver(int maxIter, int dureeTaboo) {
-		// TODO Auto-generated constructor stub
 		super(); 
 		this.maxIter = maxIter ; 
 		this.dureeTaboo = dureeTaboo ; 
@@ -34,9 +33,7 @@ public class TabooSolver extends DescentSolver {
 		int k = 0 ; 
 		boolean hasChanged = true ; 
 		while (k<maxIter && (deadline - System.currentTimeMillis() >1 ) && hasChanged) {
-			//System.out.println(bestOrder);
 			hasChanged = false ; 
-			//System.out.println("juste avant call blocksOfCriticalPath \n"+currentOrder);
 			List<Block> blocks = blocksOfCriticalPath(currentOrder);
 			List<Swap> swaps = new ArrayList<DescentSolver.Swap>() ; 
 			for (Block b : blocks) {
@@ -62,15 +59,16 @@ public class TabooSolver extends DescentSolver {
 			}
 			if (bestSwap != null) {
 				addTaboo(bestSwap, currentOrder, k) ; 
+				currentOrder = bestNeighboor.copy(); 
 			}
-			currentOrder = bestNeighboor; 
+			
+			
 			if (bestMakespan < bestOrder.toSchedule().makespan()) {
-				bestOrder = bestNeighboor.copy() ; 
+				bestOrder = currentOrder.copy() ; 
 			}
 			k++; 
 		}
 		ExitCause exit = (k<maxIter ? ExitCause.Timeout : ExitCause.Blocked) ; 
-		//System.out.println(exit.toString() + " k = "+k);
 		return new Result(instance, bestOrder.toSchedule(), exit); 
 	}
 
